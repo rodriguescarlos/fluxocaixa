@@ -1,6 +1,6 @@
 # Exemplo Fluxo de Caixa
 
-* Essa arquitetura foi projetada pensando em atender a necessidade de baixo acoplamento em os componentes do sistema e escalabilidade vertical em cenários onde o volume transação pode aumentar consideravelmente.
+* Essa arquitetura foi projetada pensando em atender a necessidade de baixo acoplamento entre os componentes do sistema e na possibilidade de escalar a aplicação em cenários de aumento do volume de transações.
 
 ## Arquitetura 
 
@@ -15,15 +15,15 @@
 
 * O diagrada a seguir é apresentado fluxo da informação entre os componentes do sistema.
  
-![Diagrama de sequeência](./specifications/diagram/fluxo-caixa-class.png)
+![Diagrama de sequeência](./specifications/diagram/fluxo-caixa-sequence.png)
 
 ## Domínio da aplicação
 
 * Essa sessão apresenta o modelo de negócio da aplicação em questão.
 
-![Modelo de negócio](./specifications/diagram/fluxo-caixa-sequence.png)
+![Modelo de negócio](./specifications/diagram/fluxo-de-caixa-class.png)
 
-# Configuracções 
+# Configurações 
 
 * Chaves do appsettings que precisam serem ajustadas
 
@@ -38,5 +38,5 @@
 
 # Referências:
 
-[Diagramas do projeto](https://real-world-plantuml.com/)
-[Biblioteca de conexão com HabbitMq](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
+* [Diagramas do projeto](https://real-world-plantuml.com/)
+* [Biblioteca de conexão com HabbitMq](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
