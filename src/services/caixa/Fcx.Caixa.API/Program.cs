@@ -24,12 +24,4 @@ app.MapPost("/cfx/controlecaixa/movimentacao", () =>
 
 }).WithName("Registrar");
 
-app.MapGet("/cfx/relatorio/movimentacao",
-    async (MovimentoContext context) =>
-{
-    await context.Movimentos.ToListAsync();
-}
-).WithName("ConsolidadoDia")
-.WithTags("MovimentacaoCaixa");
-
 app.Run();
