@@ -6,20 +6,19 @@ namespace Fcx.Library.Application.Envelope
     {
         public string MessageType { get; protected set; }
 
-        public Guid AggregateId { get; protected set; }
+        public Guid TraceId { get; set; }
 
-        public string Source { get; }
+        public string? MessageId { get; set; }
 
-        public string? TraceId { get; set; }
-
-        public DateTime CreationDateTime { get; set; }
+        public string? Source { get; }
 
         public IDictionary<string, string>? AdditionalHeaders { get; set; }
 
         protected MessageEnvelope()
         {
             MessageType = GetType().Name;
-            CreationDateTime = DateTime.Now;
+            MessageId = Guid.NewGuid().ToString();
+            AdditionalHeaders = new Dictionary<string, string>();
         }
     }
 }

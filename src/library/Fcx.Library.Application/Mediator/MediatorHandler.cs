@@ -2,6 +2,7 @@ using FluentValidation.Results;
 using Fcx.Library.Application.Messages;
 using System.Threading.Tasks;
 using MediatR;
+using Fcx.Library.Domain;
 
 namespace Fcx.Library.Application.Mediator
 {
