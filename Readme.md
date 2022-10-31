@@ -21,7 +21,7 @@
 
 * Essa sessão apresenta o modelo de negócio da aplicação em questão.
 
-![Modelo de negócio](./specifications/diagram/fluxo-caixa-class.png)
+![Modelo de negócio](./specifications/diagram/fluxo-de-caixa-class.png)
 
 # Configuracções 
 
