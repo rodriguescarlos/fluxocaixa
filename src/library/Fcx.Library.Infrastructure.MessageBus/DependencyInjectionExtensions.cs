@@ -7,7 +7,7 @@ namespace Fcx.Library.Innfrastructure.Rabbitmq
     {
         public static IServiceCollection AddMessageBus(this IServiceCollection services, string connection)
         {
-            if (string.IsNullOrEmpty(connection)) throw new ArgumentNullException();
+            if (string.IsNullOrEmpty(connection)) throw new ArgumentNullException(nameof(connection));
 
             services.AddSingleton<IMessageBus, MessageBus>();
             services.AddSingleton<IMessangerConnectionFactory>(new MessangerConnectionFactory(connection));

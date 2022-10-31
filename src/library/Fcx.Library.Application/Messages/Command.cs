@@ -9,6 +9,14 @@ namespace Fcx.Library.Application.Messages
     {
         public ValidationResult ValidationResult { get; set; }
 
+        public DateTime CreationDateTime { get; set; }
+
+
+        protected Command()
+        {
+            CreationDateTime = DateTime.Now;
+        }
+
         public virtual bool EhValido()
         {
             throw new NotImplementedException();
