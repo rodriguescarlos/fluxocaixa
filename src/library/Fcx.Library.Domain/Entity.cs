@@ -2,11 +2,11 @@ namespace Fcx.Library.Domain
 {
     public abstract class Entity
     {
-        public Guid Id { get; set; }
+        public Guid Identificador { get; set; }
 
         protected Entity()
         {
-            Id = Guid.NewGuid();
+            Identificador = Guid.NewGuid();
         }
 
         #region Comparações
@@ -18,7 +18,7 @@ namespace Fcx.Library.Domain
             if (ReferenceEquals(this, compareTo)) return true;
             if (ReferenceEquals(null, compareTo)) return false;
 
-            return Id.Equals(compareTo.Id);
+            return Identificador.Equals(compareTo.Identificador);
         }
 
         public static bool operator ==(Entity a, Entity b)
@@ -39,12 +39,12 @@ namespace Fcx.Library.Domain
 
         public override int GetHashCode()
         {
-            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+            return (GetType().GetHashCode() * 907) + Identificador.GetHashCode();
         }
 
         public override string ToString()
         {
-            return $"{GetType().Name} [Id={Id}]";
+            return $"{GetType().Name} [Id={Identificador}]";
         }
 
         #endregion

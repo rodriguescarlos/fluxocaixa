@@ -1,31 +1,42 @@
 # Exemplo Fluxo de Caixa
 
-* Esse projeto visa apresentar uma arquitetura de referência para projetos que necessitam de alta performance e um baixo acoplamento entre os módulos do sistema.
+* Essa arquitetura foi projetada pensando em atender a necessidade de baixo acoplamento em os componentes do sistema e escalabilidade vertical em cenários onde o volume transação pode aumentar consideravelmente.
 
 ## Arquitetura 
 
-!(./specifications/architecture/architecture.drawio.png)
+* Em atendimento ao objetivo do estudo, optou-se no uso de uma arquitetura baseada em eventos com os seguintes componentes:
+  - [RabbitMQ](https://www.rabbitmq.com/) - Utilizada para habilitar a arquitetura baseada em eventos
+  - [Microsoft Sql Server](https://www.microsoft.com/pt-br/sql-server/sql-server-2019) - Banco de dados transacional utilizado para persistir informações transacionais do negócio.
+  - [MongoDb](https://www.mongodb.com/)  - Banco de dados desnormalizado contendo as views no padrão das consultas consumidoras visando maior desempenho na recuperação dos dados.
+
+![Diagrama de arquitetura](./specifications/architecture/architecture.drawio.png)
 
 ## Fluxo da informação
 
-!(./specifications/diagram/fluxo-caixa-class.png)
+* O diagrada a seguir é apresentado fluxo da informação entre os componentes do sistema.
+ 
+![Diagrama de sequeência](./specifications/diagram/fluxo-caixa-class.png)
 
 ## Domínio da aplicação
 
-!(./specifications/diagram/fluxo-caixa-sequence.png)
+* Essa sessão apresenta o modelo de negócio da aplicação em questão.
 
-### Configuracções appsettings
+![Modelo de negócio](./specifications/diagram/fluxo-caixa-sequence.png)
 
-MessageQueueConnection => string de conexão do rabbitmq
+# Configuracções 
 
-### Configuracções appsettings
+* Chaves do appsettings que precisam serem ajustadas
 
-* MessageQueueConnection => string de conexão do rabbitmq
+``` appsettings.json
+  "ConnectionStrings": {
+    "SqlServer": "Server=[Informar a instância do sql server];Database=ControleCaixa;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "MessageQueueConnection": {
+    "MessageBus": "host=[Informar o host e porta para conexão ao habbitMq];publisherConfirms=true;timeout=10"
+  }
+```
 
-## Referências:
+# Referências:
 
 [Diagramas do projeto](https://real-world-plantuml.com/)
 [Biblioteca de conexão com HabbitMq](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
-
-Extensões vscode
-- jebbs.plantuml -> Diagramas de sequencia

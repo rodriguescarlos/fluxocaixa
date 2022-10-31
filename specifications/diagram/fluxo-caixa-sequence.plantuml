@@ -3,10 +3,10 @@
 actor "UI"
 
 "UI"-> FluxoCaixa: Registrar(movimento)
-"FluxoCaixa"-> EventBus: EnviarComando(movimento)
-"EventBus"-> Registro: Salvar(Movimento)
-"EventBus" <- Registro: PublicarEvento(LancamentoIntegration)
-"EventBus" <-- Registro: Confirma registro do lançamento
+"FluxoCaixa"-> EventBus: EnviarComando(MovimentoCommand)
+"EventBus"-> Registro: Salvar(MovimentoCommand)
+"EventBus" <- Registro: PublicarEvento(MovimentoRegistradoEvent)
+"EventBus" <- Registro: Confirma registro do lançamento
 "FluxoCaixa" <-- EventBus: Confirma registro do lançamento
 "UI" <-- FluxoCaixa: Confirma registro do lançamento
 

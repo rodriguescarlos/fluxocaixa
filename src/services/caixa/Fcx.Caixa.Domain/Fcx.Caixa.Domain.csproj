@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\library\Fcx.Library.Application\Fcx.Library.Application.csproj" />
+  </ItemGroup>
+
 </Project>
