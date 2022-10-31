@@ -23,7 +23,7 @@
 
 ![Modelo de negócio](./specifications/diagram/fluxo-de-caixa-class.png)
 
-# Configuracções 
+# Configurações 
 
 * Chaves do appsettings que precisam serem ajustadas
 
@@ -38,5 +38,5 @@
 
 # Referências:
 
-[Diagramas do projeto](https://real-world-plantuml.com/)
-[Biblioteca de conexão com HabbitMq](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
+* [Diagramas do projeto](https://real-world-plantuml.com/)
+* [Biblioteca de conexão com HabbitMq](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
