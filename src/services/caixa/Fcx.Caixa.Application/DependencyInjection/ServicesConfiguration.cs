@@ -5,7 +5,8 @@ using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Fcx.Caixa.Application.DependencyInjection
 {

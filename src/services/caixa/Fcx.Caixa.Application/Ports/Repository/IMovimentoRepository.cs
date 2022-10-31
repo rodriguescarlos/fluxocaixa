@@ -8,8 +8,6 @@ namespace Fcx.Caixa.Application.Ports.Repository
         void Adicionar(Movimento movimento);
 
         Task<IEnumerable<Movimento>> ObterTodos();
-
-        Task<IEnumerable<MovimentoConsolidado>> ObterConsolidado();
     }
 
 }

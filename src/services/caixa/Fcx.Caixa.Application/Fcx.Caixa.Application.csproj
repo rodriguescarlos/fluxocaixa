@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
     <Folder Include="Services\" />
     <Folder Include="UseCase\Lancamento\" />
   </ItemGroup>
@@ -15,6 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\library\Fcx.Library.Application\Fcx.Library.Application.csproj" />
     <ProjectReference Include="..\Fcx.Caixa.Domain\Fcx.Caixa.Domain.csproj" />
+    <PackageReference Include="dapper" Version="2.0.123" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
   </ItemGroup>
 
 </Project>
