@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
 
-builder.Services.AddMessageBus(builder.Configuration.GetMessageQueueConnection("MessageBus"))
+builder.Services.AddMessageBus(builder.Configuration.GetMessageQueueConnection("RabbitMQ"))
     .AddHostedService<MovimentoConsolidadoEventHandler>();
 
 builder.Services.AddMongoDB();
