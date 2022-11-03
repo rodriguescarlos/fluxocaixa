@@ -2,7 +2,7 @@
 using Polly;
 using RabbitMQ.Client.Exceptions;
 
-namespace Fcx.Library.Infrastructure.Rabbitmq
+namespace Fcx.Library.Infrastructure.Rabbitmq.Factory
 {
     public class MessangerConnectionFactory : IMessangerConnectionFactory
     {
@@ -26,8 +26,8 @@ namespace Fcx.Library.Infrastructure.Rabbitmq
         /// <param name="advancedBus"></param>
         public MessangerConnectionFactory(IBus bus, IAdvancedBus advancedBus, string connectionString)
         {
-            this.messanger = bus;
-            this.advancedMessanger = advancedBus;
+            messanger = bus;
+            advancedMessanger = advancedBus;
             this.connectionString = connectionString;
         }
 
@@ -36,7 +36,7 @@ namespace Fcx.Library.Infrastructure.Rabbitmq
         /// </summary>
         public IBus Create()
         {
-            if (string.IsNullOrEmpty(this.connectionString)) throw new ApplicationException("ConnectionString não informada.");
+            if (string.IsNullOrEmpty(connectionString)) throw new ApplicationException("ConnectionString não informada.");
 
             messanger = RabbitHutch.CreateBus(connectionString);
             advancedMessanger = messanger.Advanced;

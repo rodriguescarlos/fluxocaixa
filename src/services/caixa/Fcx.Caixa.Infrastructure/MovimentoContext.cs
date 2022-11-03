@@ -24,7 +24,7 @@ namespace Fcx.Caixa.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Ignore<ValidationResult>();
-            builder.Ignore<Event>();
+            builder.Ignore<EventBase>();
 
             foreach (var property in builder.Model.GetEntityTypes().SelectMany(
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))

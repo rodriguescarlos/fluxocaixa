@@ -6,12 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Fcx.Caixa.Infrastructure.DependencyConfiguration
+namespace Fcx.Caixa.Infrastructure.DependencyInjection
 {
 
     public static class PersistenceConfiguration
     {
-        public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("SqlServer");
             services.AddDbContext<MovimentoContext>(options =>
@@ -22,6 +22,8 @@ namespace Fcx.Caixa.Infrastructure.DependencyConfiguration
             services.AddScoped<MovimentoContext>();
 
             services.AddTransient<IDbConnection>((sp) => new SqlConnection(connectionString));
+
+            return services;
         }
     }
 }

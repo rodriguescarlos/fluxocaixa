@@ -1,8 +1,6 @@
 using FluentValidation.Results;
 using Fcx.Library.Application.Messages;
-using System.Threading.Tasks;
 using MediatR;
-using Fcx.Library.Domain;
 
 namespace Fcx.Library.Application.Mediator
 {
@@ -15,12 +13,12 @@ namespace Fcx.Library.Application.Mediator
             _mediator = mediator;
         }
 
-        public async Task<ValidationResult> EnviarComando<T>(T comando) where T : Command
+        public async Task<ValidationResult> EnviarComando<T>(T comando) where T : CommandBase
         {
             return await _mediator.Send(comando);
         }
 
-        public async Task PublicarEvento<T>(T evento) where T : Event
+        public async Task PublicarEvento<T>(T evento) where T : EventBase
         {
             await _mediator.Publish(evento);
         }

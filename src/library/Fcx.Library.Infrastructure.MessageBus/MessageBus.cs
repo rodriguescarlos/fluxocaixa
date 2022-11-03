@@ -1,7 +1,8 @@
 using EasyNetQ;
 using Polly;
 using RabbitMQ.Client.Exceptions;
-using Fcx.Library.Application.Messages.Integration;
+using Fcx.Library.Application.Messages;
+using Fcx.Library.Infrastructure.Rabbitmq.Factory;
 
 namespace Fcx.Library.Infrastructure.Rabbitmq
 {
@@ -10,19 +11,21 @@ namespace Fcx.Library.Infrastructure.Rabbitmq
         private readonly IMessangerConnectionFactory factory;
         private IBus messanger;
 
+        public IAdvancedBus AdvancedBus => this.messanger.Advanced;
+
         public MessageBus(IMessangerConnectionFactory factory)
         {
             this.factory = factory;
             TryConnect();
         }
 
-        public void Publish<T>(T message) where T : IntegrationEvent
+        public void Publish<T>(T message) where T : EventBase
         {
             TryConnect();
             messanger.PubSub.Publish(message);
         }
 
-        public async Task PublishAsync<T>(T message) where T : IntegrationEvent
+        public async Task PublishAsync<T>(T message) where T : EventBase
         {
             TryConnect();
             await messanger.PubSub.PublishAsync(message);
@@ -40,7 +43,7 @@ namespace Fcx.Library.Infrastructure.Rabbitmq
             messanger.PubSub.SubscribeAsync(subscriptionId, onMessage);
         }
 
-        public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : IntegrationEvent
+        public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : EventBase
             where TResponse : ResponseMessage
         {
             TryConnect();
@@ -48,21 +51,21 @@ namespace Fcx.Library.Infrastructure.Rabbitmq
         }
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
-            where TRequest : IntegrationEvent where TResponse : ResponseMessage
+            where TRequest : EventBase where TResponse : ResponseMessage
         {
             TryConnect();
             return await messanger.Rpc.RequestAsync<TRequest, TResponse>(request);
         }
 
         public IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
-            where TRequest : IntegrationEvent where TResponse : ResponseMessage
+            where TRequest : EventBase where TResponse : ResponseMessage
         {
             TryConnect();
             return messanger.Rpc.Respond(responder);
         }
 
         public IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
-            where TRequest : IntegrationEvent where TResponse : ResponseMessage
+            where TRequest : EventBase where TResponse : ResponseMessage
         {
             TryConnect();
             return messanger.Rpc.RespondAsync(responder).AsTask();

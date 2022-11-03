@@ -2,8 +2,9 @@
 using Fcx.Library.Application.Messages;
 using FluentValidation.Results;
 using MediatR;
-using Fcx.Caixa.Domain;
 using Fcx.Library.Application.Mediator;
+using Fcx.Library.Application.Messages.Command;
+using Fcx.Library.Application.Messages.Event;
 
 namespace Fcx.Caixa.Application.UseCase.Movimento
 {
@@ -20,7 +21,7 @@ namespace Fcx.Caixa.Application.UseCase.Movimento
             this.lancamentoRepository = lancamentoRepository;
             this.mediatorHandler = mediatorHandler;
         }
-
+        
         public async Task<ValidationResult> Handle(RegistrarMovimentoCommand message, CancellationToken cancellationToken)
         {
             if (!message.EhValido()) return message.ValidationResult;
@@ -29,22 +30,49 @@ namespace Fcx.Caixa.Application.UseCase.Movimento
 
             if (lancamento is null)
             {
-                AdicionarErro("Lançamento não existe.");
-                await mediatorHandler.PublicarEvento(new LancamentoNotExistEvent(message.TraceId, message.CodigoLancamento));
-                return ValidationResult;
+                AdicionarErro("Lançamento informado não existe.");
+                return this.ValidationResult;
             }
 
-            var movimento = new Domain.Movimento(message.CodigoMovimento, message.Valor, message.CodigoLancamento);
+            var movimento = new Domain.Movimento(message.Valor, message.CodigoLancamento);
 
             movimentoRepository.Adicionar(movimento);
 
-            await mediatorHandler.PublicarEvento(new MovimentacaoRegistradaEvent(
+            var result = await PersistirDados(movimentoRepository.UnitOfWork);
+
+            if(result.Errors.Count > 0)
+            {
+                AdicionarErro(result.Errors);
+                return this.ValidationResult;
+            }
+
+            //Notifica registro da movimentacao como ok
+            await mediatorHandler.PublicarEvento(new MovimentoRegistradoEvent(
+                movimento.Identificador,
                 movimento.Valor,
                 lancamento.TipoDC,
                 movimento.DataMovimento
                 ));
 
-            return await PersistirDados(movimentoRepository.UnitOfWork);
+            try
+            {
+                //Obtem o consolidado até o momento e dispara o evento
+                var consolidado = await movimentoRepository.ObterConsolidadoDia(movimento.DataMovimento);
+
+                await mediatorHandler.PublicarEvento(new MovimentoConsolidadoEvent(
+                    message.TraceId,
+                    consolidado.DataMovimento.Date,
+                    consolidado.Credito,
+                    consolidado.Debito,
+                    consolidado.Saldo,
+                    consolidado.TipoDC
+                ));
+            }catch(Exception ex)
+            {
+                //registrar erro no log e não para o fluxo
+            }
+
+            return this.ValidationResult;
         }
     }
 }

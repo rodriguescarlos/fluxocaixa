@@ -1,6 +1,6 @@
 ﻿using EasyNetQ;
 
-namespace Fcx.Library.Infrastructure.Rabbitmq
+namespace Fcx.Library.Infrastructure.Rabbitmq.Factory
 {
     public interface IMessangerConnectionFactory : IDisposable
     {

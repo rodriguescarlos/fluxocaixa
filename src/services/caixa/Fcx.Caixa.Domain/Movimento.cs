@@ -17,11 +17,11 @@ namespace Fcx.Caixa.Domain
             Lancamento = new Lancamento(codigoLancamento);
         }
 
-        public Movimento(int codigoMovimento, decimal valor, int codigoLancamento)
+        public Movimento(decimal valor, int codigoLancamento)
         {
             this.Valor = valor;
             this.DataMovimento = DateTime.Now;
-            this.Lancamento = new Lancamento(codigoLancamento);
+            this.AtribuirLancamento(codigoLancamento);
         }
 
         //Construtor para o EF

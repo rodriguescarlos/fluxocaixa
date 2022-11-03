@@ -17,6 +17,14 @@ namespace Fcx.Library.Application.Messages
             ValidationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
         }
 
+        protected void AdicionarErro(List<ValidationFailure> erros)
+        {
+            foreach (ValidationFailure erro in erros)
+            {
+                ValidationResult.Errors.Add(erro);
+            }
+        }
+
         protected async Task<ValidationResult> PersistirDados(IUnitOfWork unitOfWork)
         {
             if (!await unitOfWork.Commit()) AdicionarErro("Erro ao tentar persistir os dados");

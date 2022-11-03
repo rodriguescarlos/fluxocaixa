@@ -1,9 +1,9 @@
 ﻿using Fcx.Library.Application.Envelope;
 using FluentValidation.Results;
 
-namespace Fcx.Library.Application.Messages.Integration
+namespace Fcx.Library.Application.Messages
 {
-    public class ResponseMessage : MessageEnvelope
+    public class ResponseMessage : Message
     {
         public ValidationResult ValidationResult { get; set; }
 

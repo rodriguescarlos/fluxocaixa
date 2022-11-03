@@ -6,8 +6,8 @@ namespace Fcx.Library.Application.Mediator
 {
     public interface IMediatorHandler
     {
-        Task PublicarEvento<T>(T evento) where T : Event;
+        Task PublicarEvento<T>(T evento) where T : EventBase;
 
-        Task<ValidationResult> EnviarComando<T>(T comando) where T : Command;
+        Task<ValidationResult> EnviarComando<T>(T comando) where T : CommandBase;
     }
 }

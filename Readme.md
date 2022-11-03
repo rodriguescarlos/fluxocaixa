@@ -40,3 +40,9 @@
 
 * [Diagramas do projeto](https://real-world-plantuml.com/)
 * [Biblioteca de conexão com HabbitMq](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
+
+
+# Subir sistema
+
+
+docker run -d --hostname my-rabbit --name rabbit13 -p 8080:15672 -p 5672:5672 -p 25676:25676 rabbitmq:3-management

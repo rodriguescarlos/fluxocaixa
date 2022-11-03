@@ -5,14 +5,14 @@ using MediatR;
 
 namespace Fcx.Library.Application.Messages
 {
-    public abstract class Command : MessageEnvelope, IRequest<ValidationResult>
+    public abstract class CommandBase : Message, IRequest<ValidationResult>
     {
         public ValidationResult ValidationResult { get; set; }
 
         public DateTime CreationDateTime { get; set; }
 
 
-        protected Command()
+        protected CommandBase()
         {
             CreationDateTime = DateTime.Now;
         }
